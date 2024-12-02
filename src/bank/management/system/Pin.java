@@ -1,9 +1,17 @@
 package bank.management.system;
 
-import javax.swing.*;
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPasswordField;
 
 public class Pin extends JFrame implements ActionListener {
     JButton b1,b2;
@@ -80,20 +88,24 @@ public class Pin extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
 
         try{
-
-            String pin1 = p1.getText();
-            String pin2 = p2.getText();
+           
+            char[] pin1str = p1.getPassword();  
+            char[] pin2str = p2.getPassword();
+            String pin1 = new String(pin1str);
+            String pin2 = new String(pin2str);
+            /*String pin1 = p1.getText();
+            String pin2 = p2.getText();*/
 
             if (!pin1.equals(pin2)){
                 JOptionPane.showMessageDialog(null,"Entered PIN does not match");
                 return;
             }
             if (e.getSource()==b1){
-                if (p1.getText().equals("")){
+                if (pin1.equals("")){
                     JOptionPane.showMessageDialog(null,"Enter New PIN");
                     return;
                 }
-                if (p2.getText().equals("")){
+                if (pin2.equals("")){
                     JOptionPane.showMessageDialog(null,"Re-Enter New PIN");
                     return;
                 }

@@ -1,10 +1,19 @@
 package bank.management.system;
 
-import javax.swing.*;
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.ResultSet;
+
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
 
 public class Login extends JFrame implements ActionListener {
     JLabel label1, label2, label3;
@@ -101,7 +110,17 @@ public class Login extends JFrame implements ActionListener {
             if (e.getSource()==button1){
                 Connn c = new Connn();
                 String cardno = textField2.getText();
-                String pin = passwordField3.getText();
+               /*  @SuppressWarnings("deprecation") //you can change this warning
+                String pin = passwordField3.getText();*/
+                char[] pinChars = passwordField3.getPassword(); // Use getPassword instead of getText
+                String pin = new String(pinChars); // Convert char array to String
+                if (pin.length() == 4) {
+                    System.out.println(pin);
+                } else {
+                    System.out.println("Invalid PIN. PIN must be 4 characters long.");
+                }
+                
+
                 String q = "select * from login where card_number = '"+cardno+"' and  pin = '"+pin+"'";
                 ResultSet resultSet = c.statement.executeQuery(q);
                 if (resultSet.next()){

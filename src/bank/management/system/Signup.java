@@ -1,19 +1,26 @@
 package bank.management.system;
-
 import com.toedter.calendar.JDateChooser;
 
-import javax.swing.*;
 import java.awt.*;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Random;
+import javax.swing.*;
+
+
+
 
 public class Signup extends JFrame implements ActionListener {
     JRadioButton r1,r2,m1,m2,m3;
     JButton next;
 
-    JTextField textName ,textFname, textEmail,textAdd,textcity,textState,textPin;
-    JDateChooser dateChooser;
+    JTextField textName ,textFname, textEmail,textAdd,textcity,textState;
+    private JPasswordField textPin;
+
+     JDateChooser dateChooser;
     Random ran = new Random();
     long first4 =(ran.nextLong() % 9000L) +1000L;
     String first = " " + Math.abs(first4);
@@ -67,7 +74,7 @@ public class Signup extends JFrame implements ActionListener {
         DOB.setBounds(100,340,200,30);
         add(DOB);
 
-        dateChooser = new JDateChooser();
+         dateChooser = new JDateChooser();
         dateChooser.setForeground(new Color(105,105,105));
         dateChooser.setBounds(300,340,400,30);
         add(dateChooser);
@@ -157,7 +164,9 @@ public class Signup extends JFrame implements ActionListener {
         labelPin.setBounds(100,590,200,30);
         add(labelPin);
 
-        textPin = new JTextField();
+        //textPin = new JTextField();
+        // Correct declaration
+        textPin = new JPasswordField();//this is added
         textPin.setFont(new Font("Raleway",Font.BOLD, 14));
         textPin.setBounds(300,590,400,30);
         add(textPin);
@@ -191,6 +200,8 @@ public class Signup extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
 
+        
+
         String formno = first;
         String name = textName.getText();
         String fname = textFname.getText();
@@ -213,13 +224,17 @@ public class Signup extends JFrame implements ActionListener {
 
         String address = textAdd.getText();
         String city = textcity.getText();
-        String pincode = textPin.getText();
+        char[] passcode = textPin.getPassword();
+        String pincode =  new String(passcode);
+        //String pincode = textPin.getText();
         String state = textState.getText();
 
-        try{
-            if (textName.getText().equals("")){
+       try{
+            if (textName.getText().equals("")){ 
                 JOptionPane.showMessageDialog(null, "Fill all the fields");
-            }else {
+            }
+        
+        else {
                 Connn c = new Connn();
                 String q = "insert into signup values('"+formno+"', '"+name+"','"+fname+"','"+dob+"','"+gender+"','"+email+"','"+marital+"', '"+address+"', '"+city+"','"+pincode+"','"+state+"' )";
                 c.statement.executeUpdate(q);
@@ -231,9 +246,12 @@ public class Signup extends JFrame implements ActionListener {
             E.printStackTrace();
         }
 
+       
+
     }
 
     public static void main(String[] args) {
         new Signup();
+
     }
 }

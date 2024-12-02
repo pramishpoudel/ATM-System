@@ -7,7 +7,7 @@ import java.awt.event.ActionListener;
 
 public class Signup2 extends JFrame implements ActionListener {
     JComboBox comboBox,comboBox2,comboBox3,comboBox4,comboBox5;
-    JTextField textPan,textAadhar;
+    JTextField textPan;
     JRadioButton r1,r2, e1,e2;
     JButton next;
     String formno;
@@ -38,7 +38,7 @@ public class Signup2 extends JFrame implements ActionListener {
         l3.setBounds(100,120,100,30);
         add(l3);
 
-        String religion[] = {"Hindu","Muslim","Sikh", "Christian", "Other"};
+        String religion[] = {"Hindu","Muslim","Christian", "Other"};
         comboBox = new JComboBox(religion);
         comboBox.setBackground(new Color(252,208,76));
         comboBox.setFont(new Font("Raleway",Font.BOLD,14));
@@ -50,7 +50,7 @@ public class Signup2 extends JFrame implements ActionListener {
         l4.setBounds(100,170,100,30);
         add(l4);
 
-        String Category [] = {"General","OBC","SC", "ST", "Other"};
+        String Category [] = {"Brahmin","Chettri","aadiwasi", "janajati", "Other"};
         comboBox2 = new JComboBox(Category);
         comboBox2.setBackground(new Color(252,208,76));
         comboBox2.setFont(new Font("Raleway",Font.BOLD,14));
@@ -103,17 +103,6 @@ public class Signup2 extends JFrame implements ActionListener {
         textPan.setFont(new Font("Raleway", Font.BOLD,18));
         textPan.setBounds(350,390,320,30);
         add(textPan);
-
-        JLabel l9 = new JLabel("Aadhar Number : ");
-        l9.setFont(new Font("Raleway", Font.BOLD,18));
-        l9.setBounds(100,440,180,30);
-        add(l9);
-
-        textAadhar = new JTextField();
-        textAadhar.setFont(new Font("Raleway", Font.BOLD,18));
-        textAadhar.setBounds(350,440,320,30);
-        add(textAadhar);
-
 
         JLabel l10 = new JLabel("Senior Citizen : ");
         l10.setFont(new Font("Raleway", Font.BOLD,18));
@@ -182,7 +171,6 @@ public class Signup2 extends JFrame implements ActionListener {
         String occ = (String) comboBox5.getSelectedItem();
 
         String pan = textPan.getText();
-        String addhar = textAadhar.getText();
 
         String scitizen = " ";
         if ((r1.isSelected())){
@@ -198,11 +186,11 @@ public class Signup2 extends JFrame implements ActionListener {
         }
 
         try{
-            if (textPan.getText().equals("") || textAadhar.getText().equals("")){
+            if (textPan.getText().equals("")){
                 JOptionPane.showMessageDialog(null,"Fill all the fields");
             }else {
                 Connn c = new Connn();
-                String q = "insert into Signuptwo values('"+formno+"', '"+rel+"', '"+cate+"','"+inc+"','"+edu+"','"+occ+"','"+pan+"','"+addhar+"','"+scitizen+"','"+eAccount+"')";
+                String q = "insert into Signuptwo values('"+formno+"', '"+rel+"', '"+cate+"','"+inc+"','"+edu+"','"+occ+"','"+pan+"','"+scitizen+"','"+eAccount+"')";
                 c.statement.executeUpdate(q);
                 new Signup3(formno);
                 setVisible(false);
